@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入 CSS 樣式 -->
+  <?!= include('styles'); ?>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>AI 代理人工具應用於 TFDA 醫療器材查驗登記審查電子問卷 (草案)</h1>
+      <p class="version">Ver.6 2025-10-28</p>
+    </div>
+    
+    <div class="intro">
+      <p>您好，這份問卷想了解您使用醫療器材查驗登記電子化送件系統情況，並研究如何透過 AI 代理人工具幫助您更愉快的進行醫療器材查驗登記審查：讓您的審查更快、更聰明，甚至更加有趣。我們希望透過此問卷能探求您的專業意見，以優化系統並提供您最新AI代理人輔助審查工具。</p>
+      <p>本問卷共有 20 道題目，預計需要您10-15 分鐘。讓我們開始吧！🚀</p>
+    </div>
+
+    <!-- 表單開始 -->
+    <form id="surveyForm">
+      
+      <!-- 所有問卷題目放在這裡 -->
+      <!-- 範例：問題 1 -->
+      <div class="question-block">
+        <label>1. 您所屬單位（可複選）：</label>
+        <div class="options">
+          <input type="checkbox" name="A1_unit" value="TFDA（案件承辦人員）"> TFDA（案件承辦人員）<br>
+          <input type="checkbox" name="A1_unit" value="TFDA（具覆核權限人員）"> TFDA（具覆核權限人員）<br>
+          <input type="checkbox" name="A1_unit" value="TFDA（具決行權限人員）"> TFDA（具決行權限人員）<br>
+          <input type="checkbox" name="A1_unit" value="醫藥品查驗中心（CDE）"> 醫藥品查驗中心（CDE）<br>
+          <input type="checkbox" name="A1_unit" value="工研院量測中心"> 工研院量測中心<br>
+          <input type="checkbox" name="A1_unit_other" value="其他"> 其他 (請說明: <input type="text" name="A1_unit_other_text">)
+        </div>
+      </div>
+      
+      <!-- 範例：問題 2 -->
+      <div class="question-block">
+        <label>2. 您使用醫療器材查驗登記電子化送件系統的時間：</label>
+        <div class="options">
+            <input type="radio" name="A2_experience" value="1年以下" required> 1年以下<br>
+            <input type="radio" name="A2_experience" value="1-3年"> 1-3年<br>
+            <input type="radio" name="A2_experience" value="3-5年"> 3-5年<br>
+            <input type="radio" name="A2_experience" value="5年以上"> 5年以上<br>
+        </div>
+      </div>
+
+      <!-- ... 此處省略其他 18 個問題的 HTML 結構，您可以按照上面的格式自行添加 ... -->
+      <!-- 確保每個 input 都有一個獨特的 name 屬性 -->
+      
+      <!-- 問題 20 -->
+      <div class="question-block">
+        <label for="F20_ideas">20. 其他想法或 AI 功能的瘋狂點子？</label>
+        <textarea id="F20_ideas" name="F20_ideas" rows="4"></textarea>
+      </div>
+
+      <!-- 聯絡資訊 -->
+      <div class="question-block">
+        <h3>聯絡資訊 (選擇性填寫)</h3>
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name">
+        <label for="email">聯絡Email：</label>
+        <input type="email" id="email" name="email">
+      </div>
+
+      <div class="button-container">
+        <button type="submit" id="submitBtn">提交問卷</button>
+      </div>
+    </form>
+    
+    <div id="loading" style="display:none;">
+      <p>正在提交並進行 AI 分析，請稍候...</p>
+    </div>
+    
+    <div id="thankYouMessage" style="display:none;">
+      <h2>感謝您的參與！</h2>
+      <p id="responseMessage"></p>
+      <div id="aiAnalysisResult" style="display:none;">
+          <h3>AI 洞察分析:</h3>
+          <p><strong>摘要:</strong> <span id="aiSummary"></span></p>
+          <p><strong>情緒:</strong> <span id="aiSentiment"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // 防止表單直接提交
+
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('loading').style.display = 'block';
+
+      // 收集表單資料
+      const formData = new FormData(this);
+      const data = {};
+      
+      // 處理複選框
+      data.A1_unit = formData.getAll('A1_unit');
+      if (formData.get('A1_unit_other_text')) {
+          data.A1_unit.push('其他: ' + formData.get('A1_unit_other_text'));
+      }
+      
+      // ... 您需要為每一個問題的 name 屬性在這裡添加處理邏輯 ...
+      // 範例：處理單選和文字輸入
+      data.A2_experience = formData.get('A2_experience');
+      data.F20_ideas = formData.get('F20_ideas');
+      data.name = formData.get('name');
+      data.email = formData.get('email');
+      
+      // 處理所有複選題（假設您已命名）
+      data.B6_features = formData.getAll('B6_features');
+      data.D9_time_consuming = formData.getAll('D9_time_consuming');
+      data.D10_advantages = formData.getAll('D10_advantages');
+      data.E11_ai_help = formData.getAll('E11_ai_help');
+      data.E12_ai_tools = formData.getAll('E12_ai_tools');
+      data.E15_ui_preference = formData.getAll('E15_ui_preference');
+
+      // 處理所有單選題
+      ['A3_hours', 'B4_efficiency', 'B5_satisfaction', 'C7_optimization', 'C8_lag', 
+       'E13_integration', 'E14_priority', 'E16_customization', 'E17_automation', 
+       'E18_excitement', 'E19_workshop'].forEach(name => {
+          data[name] = formData.get(name);
+      });
+
+      // 呼叫後端 Apps Script 函數
+      google.script.run.withSuccessHandler(function(response) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('surveyForm').style.display = 'none';
+        document.getElementById('thankYouMessage').style.display = 'block';
+        document.getElementById('responseMessage').innerText = response.message;
+        
+        // 顯示 AI 分析結果
+        if(response.summary && response.summary !== "N/A"){
+            document.getElementById('aiAnalysisResult').style.display = 'block';
+            document.getElementById('aiSummary').innerText = response.summary;
+            document.getElementById('aiSentiment').innerText = response.sentiment;
+        }
+
+      }).withFailureHandler(function(error) {
+        document.getElementById('loading').style.display = 'none';
+        alert('提交失敗: ' + error.message);
+        document.getElementById('submitBtn').disabled = false;
+      }).submitSurvey(data);
+    });
+  </script>
+</body>
+</html>
