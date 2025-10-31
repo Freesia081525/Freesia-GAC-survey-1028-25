@@ -1,0 +1,237 @@
+agents:
+  - id: data_analyzer
+    name: Data Analyzer
+    description: Analyzes data patterns, trends, and provides comprehensive insights
+    default_prompt: |
+      Analyze the following dataset and provide detailed insights:
+      
+      {{data}}
+      
+      Please provide:
+      1. Key patterns and trends
+      2. Statistical observations
+      3. Notable outliers or anomalies
+      4. Actionable recommendations
+    default_model: gemini-2.5-flash
+    default_temperature: 0.7
+
+  - id: summarizer
+    name: Summarizer
+    description: Creates concise, clear summaries of content or previous outputs
+    default_prompt: |
+      Create a concise summary of the following content:
+      
+      {{previous_output}}
+      
+      Focus on the most important points and key takeaways.
+    default_model: gemini-2.5-flash-lite
+    default_temperature: 0.5
+
+  - id: classifier
+    name: Classifier
+    description: Classifies data into meaningful categories and groups
+    default_prompt: |
+      Classify the following data into relevant categories:
+      
+      {{data}}
+      
+      Provide:
+      1. Category names and descriptions
+      2. Items in each category
+      3. Reasoning for classification
+    default_model: gpt-4o-mini
+    default_temperature: 0.3
+
+  - id: entity_extractor
+    name: Entity Extractor
+    description: Extracts key entities, names, dates, and structured information
+    default_prompt: |
+      Extract all key entities from the following data:
+      
+      {{data}}
+      
+      Extract:
+      - Names (people, organizations, locations)
+      - Dates and times
+      - Numbers and metrics
+      - Key terms and concepts
+      
+      Format the output as a structured list.
+    default_model: gemini-2.5-flash
+    default_temperature: 0.4
+
+  - id: sentiment_analyzer
+    name: Sentiment Analyzer
+    description: Analyzes sentiment, emotional tone, and overall mood
+    default_prompt: |
+      Analyze the sentiment and emotional tone of the following:
+      
+      {{data}}
+      
+      Provide:
+      1. Overall sentiment (positive/negative/neutral)
+      2. Emotional tone analysis
+      3. Key phrases indicating sentiment
+      4. Sentiment score (0-10)
+    default_model: gpt-4o-mini
+    default_temperature: 0.6
+
+  - id: quality_checker
+    name: Quality Checker
+    description: Checks data quality, completeness, and identifies issues
+    default_prompt: |
+      Analyze the quality of the following data:
+      
+      {{data}}
+      
+      Check for:
+      1. Missing or incomplete information
+      2. Inconsistencies or errors
+      3. Data format issues
+      4. Suggestions for improvement
+    default_model: gemini-2.5-flash
+    default_temperature: 0.5
+
+  - id: trend_predictor
+    name: Trend Predictor
+    description: Identifies trends and makes predictions based on data
+    default_prompt: |
+      Based on the following data, identify trends and make predictions:
+      
+      {{data}}
+      
+      Provide:
+      1. Current trends observed
+      2. Future predictions
+      3. Confidence level
+      4. Factors influencing predictions
+    default_model: gpt-4.1-mini
+    default_temperature: 0.7
+
+  - id: comparative_analyzer
+    name: Comparative Analyzer
+    description: Compares and contrasts different data points or outputs
+    default_prompt: |
+      Compare and analyze the following:
+      
+      {{previous_output}}
+      
+      Provide:
+      1. Similarities and differences
+      2. Comparative metrics
+      3. Relative strengths and weaknesses
+      4. Overall comparison summary
+    default_model: gemini-2.5-flash
+    default_temperature: 0.6
+
+  - id: insight_generator
+    name: Insight Generator
+    description: Generates deep insights and actionable recommendations
+    default_prompt: |
+      Generate deep insights from the following:
+      
+      {{previous_output}}
+      
+      Provide:
+      1. Non-obvious insights
+      2. Hidden patterns or connections
+      3. Strategic recommendations
+      4. Potential opportunities or risks
+    default_model: gpt-4.1-mini
+    default_temperature: 0.8
+
+  - id: report_writer
+    name: Report Writer
+    description: Creates professional, well-structured reports
+    default_prompt: |
+      Create a professional report based on:
+      
+      {{previous_output}}
+      
+      Include:
+      1. Executive Summary
+      2. Key Findings
+      3. Detailed Analysis
+      4. Recommendations
+      5. Conclusion
+      
+      Use clear headings and professional formatting.
+    default_model: gemini-2.5-flash
+    default_temperature: 0.6
+
+  - id: validator
+    name: Validator
+    description: Validates information accuracy and consistency
+    default_prompt: |
+      Validate the accuracy and consistency of:
+      
+      {{previous_output}}
+      
+      Check for:
+      1. Factual accuracy
+      2. Logical consistency
+      3. Contradictions
+      4. Areas needing verification
+    default_model: gpt-4o-mini
+    default_temperature: 0.3
+
+  - id: translator
+    name: Language Translator
+    description: Translates content to different languages
+    default_prompt: |
+      Translate the following content to [TARGET LANGUAGE]:
+      
+      {{previous_output}}
+      
+      Maintain the original meaning, tone, and structure.
+    default_model: gemini-2.5-flash
+    default_temperature: 0.4
+
+  - id: code_generator
+    name: Code Generator
+    description: Generates code based on data analysis requirements
+    default_prompt: |
+      Based on the following data analysis:
+      
+      {{previous_output}}
+      
+      Generate Python code to:
+      1. Load and process similar data
+      2. Perform the described analysis
+      3. Visualize key findings
+      
+      Include comments and best practices.
+    default_model: gpt-4.1-mini
+    default_temperature: 0.5
+
+  - id: question_answerer
+    name: Question Answerer
+    description: Answers specific questions based on data or previous analysis
+    default_prompt: |
+      Based on the following information:
+      
+      {{previous_output}}
+      
+      Answer these questions:
+      [ADD YOUR QUESTIONS HERE]
+      
+      Provide detailed, evidence-based answers.
+    default_model: gemini-2.5-flash
+    default_temperature: 0.6
+
+  - id: creative_writer
+    name: Creative Writer
+    description: Creates creative content based on data insights
+    default_prompt: |
+      Based on these insights:
+      
+      {{previous_output}}
+      
+      Create engaging, creative content such as:
+      - Story narrative
+      - Marketing copy
+      - Social media posts
+      
+      Make it compelling and audience-appropriate.
+    default_model: gpt-4o-mini
+    default_temperature: 0.9
